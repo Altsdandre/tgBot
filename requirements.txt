@@ -1,6 +1,7 @@
 # List of required packages (Dependencies)
 requests
 telebot
+os
 
 # If you need to specify a version
 #requests==2.7.0
