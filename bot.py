@@ -41,23 +41,23 @@ def askAge(message):
 	elif sign == 'о':
 		ending = 'ё' + ending[-2:]
 	elif sign in consonant:
-	precons = text[-4:-3]
-	signcons = text[-5:-4]
-	if precons in consonant:
-		ending = precons + ending
-		if signcons == 'а':
-			ending = 'я' + ending
-		elif signcons == 'у':
-			ending = 'ю' + ending
+		precons = text[-4:-3]
+		signcons = text[-5:-4]
+		if precons in consonant:
+			ending = precons + ending
+			if signcons == 'а':
+				ending = 'я' + ending
+			elif signcons == 'у':
+				ending = 'ю' + ending
+			else:
+				ending = signcons + ending
 		else:
-			ending = signcons + ending
-	else:
-		if precons == 'а':
-			ending = 'я' + ending
-		elif precons == 'у':
-			ending = 'ю' + ending
-		else:
-			ending =  precons + ending
+			if precons == 'а':
+				ending = 'я' + ending
+			elif precons == 'у':
+				ending = 'ю' + ending
+			else:
+				ending =  precons + ending
 	
 	huname = 'Ху' + ending
 	msg = bot.send_message(chat_id, huname)
