@@ -19,7 +19,7 @@ def start_handler(message):
 def askName(message):
 	chat_id = message.chat.id
 	text = message.text
-	responseName(text)
+	responseName(text, chat_id)
 
 def matchRu(text):
 	return not alphabet.isdisjoint(text.lower())
@@ -32,7 +32,7 @@ def checkInput(text):
 	else:
 		return 'en'
 
-def responseName(name):
+def responseName(name, chat_id):
 	text = name.strip()
 	if not checkInput(text) == 'ru':
 		msg = bot.send_message(chat_id, 'Ху*вое имечко...')
@@ -76,7 +76,7 @@ def responseName(name):
 	huname = 'Ху' + ending
 	msg = bot.send_message(chat_id, huname)
 
-def responseData(name):
+def responseData(name, chat_id):
 	text = name.strip()
 	if not checkInput(text) == 'en':
 		msg = bot.send_message(chat_id, 'wrong name')
@@ -92,8 +92,8 @@ def text_handler(message):
 	text = message.text.lower()
 	chat_id = message.chat.id
 	if checkInput(text) == 'en':
-		responseData(text)
+		responseData(text, chat_id)
 	elif checkInput(text) == 'ru':
-		responseName(text)
+		responseName(text, chat_id)
 
 bot.polling()
