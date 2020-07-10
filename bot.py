@@ -71,11 +71,11 @@ def responseName(name, chat_id):
 				ending = signcons + ending
 		else:
 			if precons == 'а':
-				ending = 'я' + ending
+				ending = 'я' + ending[-3:]
 			if precons == 'о':
-				ending = 'ё' + ending
+				ending = 'ё' + ending[-3:]
 			elif precons == 'у':
-				ending = 'ю' + ending
+				ending = 'ю' + ending[-3:]
 			else:
 				ending =  precons + ending
 	
