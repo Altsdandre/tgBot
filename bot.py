@@ -83,9 +83,12 @@ def responseData(name, chat_id):
 		return
 	a = requests.get('https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR/securities/' + text + '.json?iss.meta=off&iss.only=securities&securities.columns=SECID,PREVADMITTEDQUOTE')
 	resp = a.json()['securities']['data']
-	resp = resp[0]
-	msg = resp[0] + ' : ' + str(resp[1]) 
-	bot.send_message(chat_id, msg)
+	if resp:
+		resp = resp[0]
+		msg = resp[0] + ' : ' + str(resp[1])
+		bot.send_message(chat_id, msg)
+	else:
+		bot.send_message(chat_id, 'no data')
 
 @bot.message_handler(content_types=['text'])
 def text_handler(message):
