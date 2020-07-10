@@ -1,19 +1,23 @@
 import requests
-import json
+import telebot
 
 f = open('token.txt')
-token = f.readline()
+TOKEN = f.readline()
 
-name = 'AFKS'
+bot = telebot.TeleBot(TOKEN)
 
-a = requests.get('https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR/securities/' + name + '.json?iss.meta=off&iss.only=securities&securities.columns=SECID,PREVADMITTEDQUOTE')
+@bot.message_handler(commands=['start', 'go'])
+def start_handler(message):
+	bot.send_message(message.chat.id, 'Привет, введи имя акции и получи ее стоимость.')
 
-resp = a.json()['securities']['data']
-resp = resp[0]
-message = resp[0] + ' : ' + str(resp[1]) 
-#print(message)
+@bot.message_handler(content_types=['text'])
+def text_handler(message):
+	text = message.text.lower()
+	chat_id = message.chat.id
+	a = requests.get('https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR/securities/' + text + '.json?iss.meta=off&iss.only=securities&securities.columns=SECID,PREVADMITTEDQUOTE')
+	resp = a.json()['securities']['data']
+	resp = resp[0]
+	msg = resp[0] + ' : ' + str(resp[1]) 
+	bot.send_message(chat_id, msg)
 
-url = 'https://api.telegram.org/bot'+ token +'/sendMessage?chat_id=-430753446'
-data={'text':message}
-
-tgmess=requests.post(url, json=data)
+bot.polling()
