@@ -2,8 +2,8 @@ import requests
 import telebot
 import os
 
-vowel = set("аеёиоуэюя")
-consonant = set("цкнггшщзхждлрпвфчсмтб")
+vowel = set("аеёиоуэюяы")
+consonant = set("цкнггшщзхждлрпвфчсмтбьъ")
 alphabet=set('абвгдеёжзийклмнопрстуфхцчшщъыьэюя')
 
 TOKEN = os.environ['TELEGRAM_TOKEN']
