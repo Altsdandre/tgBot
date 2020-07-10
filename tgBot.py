@@ -1,9 +1,9 @@
 import requests
 import telebot
 
-f = open('token.txt')
-TOKEN = f.readline()
-
+# f = open('token.txt')
+# TOKEN = f.readline()
+TOKEN = os.environ['TELEGRAM_TOKEN']
 bot = telebot.TeleBot(TOKEN)
 
 @bot.message_handler(commands=['start', 'go'])
