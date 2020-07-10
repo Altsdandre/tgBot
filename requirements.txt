@@ -2,7 +2,7 @@
 requests
 
 # If you need to specify a version
-requests==2.7.0
+#requests==2.7.0
 
 # Or you need not a pip package, @'...' specifies git branch
 #git+https://github.com/Kylmakalle/pyTelegramBotAPI.git@feature-BotAPIV3
