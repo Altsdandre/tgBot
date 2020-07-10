@@ -4,6 +4,7 @@ import os
 
 vowel = set("аеёиоуэюя")
 consonant = set("цкнггшщзхждлрпвфчсмтб")
+alphabet=set('абвгдеёжзийклмнопрстуфхцчшщъыьэюя')
 
 TOKEN = os.environ['TELEGRAM_TOKEN']
 bot = telebot.TeleBot(TOKEN)
@@ -12,15 +13,28 @@ bot = telebot.TeleBot(TOKEN)
 def start_handler(message):
 	chat_id = message.chat.id
 	text = message.text
-	msg = bot.send_message(chat_id, 'Привет, как тебя зовут?')
-	bot.register_next_step_handler(msg, askAge)
+	msg = bot.send_message(chat_id, 'Привет, как твоё имя?')
+	bot.register_next_step_handler(msg, askName)
 
-def askAge(message):
+def askName(message):
 	chat_id = message.chat.id
 	text = message.text
+	responseName(text)
 
-	text = text.strip()
+def matchRu(text):
+	return not alphabet.isdisjoint(text.lower())
+
+def checkInput(text):
 	if not text.isalpha():
+		return 'notalpha'
+	if matchRu(text):
+		return 'ru'
+	else:
+		return 'en'
+
+def responseName(name):
+	text = name.strip()
+	if not checkInput(text) == 'ru':
 		msg = bot.send_message(chat_id, 'Ху*вое имечко...')
 		return
 
@@ -62,14 +76,24 @@ def askAge(message):
 	huname = 'Ху' + ending
 	msg = bot.send_message(chat_id, huname)
 
-@bot.message_handler(content_types=['text'])
-def text_handler(message):
-	text = message.text.lower()
-	chat_id = message.chat.id
+def responseData(name):
+	text = name.strip()
+	if not checkInput(text) == 'en':
+		msg = bot.send_message(chat_id, 'wrong name')
+		return
 	a = requests.get('https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR/securities/' + text + '.json?iss.meta=off&iss.only=securities&securities.columns=SECID,PREVADMITTEDQUOTE')
 	resp = a.json()['securities']['data']
 	resp = resp[0]
 	msg = resp[0] + ' : ' + str(resp[1]) 
 	bot.send_message(chat_id, msg)
+
+@bot.message_handler(content_types=['text'])
+def text_handler(message):
+	text = message.text.lower()
+	chat_id = message.chat.id
+	if checkInput(text) == 'en':
+		responseData(text)
+	elif checkInput(text) == 'ru':
+		responseName(text)
 
 bot.polling()
