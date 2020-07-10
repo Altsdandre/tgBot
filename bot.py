@@ -54,6 +54,8 @@ def responseName(name, chat_id):
 		ending = 'я' + ending[-2:]
 	elif sign == 'о':
 		ending = 'ё' + ending[-2:]
+	elif sign == 'у':
+		ending = 'ю' + ending[-2:]
 	elif sign in consonant:
 		precons = text[-4:-3]
 		signcons = text[-5:-4]
@@ -61,6 +63,8 @@ def responseName(name, chat_id):
 			ending = precons + ending
 			if signcons == 'а':
 				ending = 'я' + ending
+			elif signcons == 'о':
+				ending = 'ё' + ending
 			elif signcons == 'у':
 				ending = 'ю' + ending
 			else:
@@ -68,6 +72,8 @@ def responseName(name, chat_id):
 		else:
 			if precons == 'а':
 				ending = 'я' + ending
+			if precons == 'о':
+				ending = 'ё' + ending
 			elif precons == 'у':
 				ending = 'ю' + ending
 			else:
