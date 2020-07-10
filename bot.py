@@ -2,14 +2,37 @@ import requests
 import telebot
 import os
 
-# f = open('token.txt')
-# TOKEN = f.readline()
+vowel = set("аеёиоуэюя")
+consonant = set("цкнггшщзхждлрпвфчсмтб")
+
 TOKEN = os.environ['TELEGRAM_TOKEN']
 bot = telebot.TeleBot(TOKEN)
 
 @bot.message_handler(commands=['start', 'go'])
 def start_handler(message):
-	bot.send_message(message.chat.id, 'Привет, введи имя акции и получи ее стоимость.')
+	chat_id = message.chat.id
+	text = message.text
+	msg = bot.send_message(chat_id, 'Привет, как тебя зовут?')
+	bot.register_next_step_handler(msg, askAge)
+
+def askAge(message):
+	chat_id = message.chat.id
+	text = message.text
+	# if not text.isdigit():
+	#     msg = bot.send_message(chat_id, 'Возраст должен быть числом, введите ещё раз.')
+	#     bot.register_next_step_handler(msg, askAge) #askSource
+	#     return
+	ending = text.lower()[-3:]
+	sign = ending[0]
+	
+	if sign == 'а':
+		ending = 'я' + ending[-2:]
+	if sign in consonant:
+		ending = 'я' + ending
+	
+	huname = 'Ху' + ending
+	msg = bot.send_message(chat_id, huname)
+
 
 @bot.message_handler(content_types=['text'])
 def text_handler(message):
