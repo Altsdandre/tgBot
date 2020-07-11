@@ -103,12 +103,34 @@ def text_handler(message):
 
 	if text.isdigit():
 		if text == '300':
-			bot.send_message(chat_id, 'Отсоси у тракториста!')
+			bot.send_message(chat_id, 'Атсаси у трактариста!')
 		else:
 			bot.send_message(chat_id, 'Это не твое любимое число')	
 	elif checkInput(text) == 'en':
 		responseData(text, chat_id)
 	else:
 		responseName(text, chat_id)
+
+@bot.message_handler(commands=['z'])
+def qest_handler(message):
+	chat_id = message.chat.id
+	text = message.text
+	msg = bot.send_message(chat_id, 'Сколько будет 150+150?')
+	bot.register_next_step_handler(msg, askNum)
+
+def askNum(message):
+	chat_id = message.chat.id
+	text = message.text
+	text = text.lower()
+	
+	if text.isdigit():
+		if text == '300':
+			bot.send_message(chat_id, 'Атсаси у трактариста!')
+		else
+			bot.send_message(chat_id, 'Дурачина!')
+	elif text == 'триста'
+		bot.send_message(chat_id, 'Атсаси у трактариста!')
+	else
+		bot.send_message(chat_id, 'Дурачина!')
 
 bot.polling()
