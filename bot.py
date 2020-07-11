@@ -126,11 +126,11 @@ def askNum(message):
 	if text.isdigit():
 		if text == '300':
 			bot.send_message(chat_id, 'Атсаси у трактариста!')
-		else
+		else:
 			bot.send_message(chat_id, 'Дурачина!')
-	elif text == 'триста'
+	elif text == 'триста':
 		bot.send_message(chat_id, 'Атсаси у трактариста!')
-	else
+	else:
 		bot.send_message(chat_id, 'Дурачина!')
 
 bot.polling()
