@@ -100,9 +100,13 @@ def responseData(name, chat_id):
 def text_handler(message):
 	text = message.text.lower()
 	chat_id = message.chat.id
+
+	if text == '300':
+		bot.send_message(chat_id, 'Отсоси у тракториста!')
+		return
 	if checkInput(text) == 'en':
 		responseData(text, chat_id)
-	elif checkInput(text) == 'ru':
+	else:
 		responseName(text, chat_id)
 
 bot.polling()
