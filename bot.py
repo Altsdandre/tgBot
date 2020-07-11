@@ -101,10 +101,12 @@ def text_handler(message):
 	text = message.text.lower()
 	chat_id = message.chat.id
 
-	if text == '300':
-		bot.send_message(chat_id, 'Отсоси у тракториста!')
-		return
-	if checkInput(text) == 'en':
+	if text.isdigit():
+		if text == '300':
+			bot.send_message(chat_id, 'Отсоси у тракториста!')
+		else:
+			bot.send_message(chat_id, 'Это не твое любимое число')	
+	elif checkInput(text) == 'en':
 		responseData(text, chat_id)
 	else:
 		responseName(text, chat_id)
