@@ -35,15 +35,22 @@ def checkInput(text):
 def responseName(name, chat_id):
 	text = name.strip()
 	if not checkInput(text) == 'ru':
-		msg = bot.send_message(chat_id, 'Ху*вое имечко...')
+		msg = bot.send_message(chat_id, 'Русиш онли')
 		return
 
 	text = text.lower()
-	ending = text[-3:]
+	ending = text
+	for i in range(0, len(text)):
+		if text[i] in vowel:
+			ending = text[i:]
+			break
+	if ending == text:
+		msg = bot.send_message(chat_id, "хуя" + ending)
+		return
 	sign = ending[0]
 	
 	if len(text) < 2:
-		msg = bot.send_message(chat_id, 'Ху*вое имечко...')
+		msg = bot.send_message(chat_id, 'Съешь растишку')
 		return
 	elif len(text) == 2:
 		if text[0] == 'у':
@@ -51,11 +58,11 @@ def responseName(name, chat_id):
 		else:
 			ending = text
 	elif sign == 'а':
-		ending = 'я' + ending[-2:]
+		ending = 'я' + ending[1:]
 	elif sign == 'о':
-		ending = 'ё' + ending[-2:]
+		ending = 'ё' + ending[1:]
 	elif sign == 'у':
-		ending = 'ю' + ending[-2:]
+		ending = 'ю' + ending[1:]
 	elif sign in consonant:
 		precons = text[-4:-3]
 		signcons = text[-5:-4]
