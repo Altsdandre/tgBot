@@ -128,7 +128,7 @@ def text_handler(message):
 	else:
 		responseName(text, chat_id)
 
-@bot.message_handler(commands=['z'])
+@bot.message_handler(commands=['zoo'])
 def qest_handler(message):
 	chat_id = message.chat.id
 	text = message.text
