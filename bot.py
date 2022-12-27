@@ -39,9 +39,6 @@ def responseName(name, chat_id):
 		return
 
 	text = text.lower()
-	if text == "я":
-		msg = bot.send_message(chat_id, "головка от хуя!")
-		return
 	ending = text
 	firstVowel = -1
 	for i in range(0, len(text)):
@@ -50,8 +47,16 @@ def responseName(name, chat_id):
 			firstVowel = i
 			break
 	if ending == text and firstVowel == -1:
-		msg = bot.send_message(chat_id, "хуя" + ending)
+		msg = bot.send_message(chat_id, "Хуя" + ending)
 		return
+
+	if len(ending) > 1 and ending[1] in vowel:
+		ending = ending[1:]
+
+	if ending == "я":
+		msg = bot.send_message(chat_id, "Головка от хуя!")
+		return
+
 	sign = ending[0]
 	
 	if len(text) < 2:
